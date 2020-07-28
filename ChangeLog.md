@@ -1,3 +1,68 @@
+## 4.5.0 - August 2020
+#### Az.Accounts
+* Updated 'Connect-AzAccount' to accept parameter 'MaxContextPopulation' [#9865]
+* Updated SubscriptionClient version to 2019-06-01 and display tenant domains [#9838]
+* Supported home tenant and managedBy tenant information of subscription
+* Corrected module name, version info in telemetry data
+* Adjusted SqlDatabaseDnsSuffix and ServiceManagementUrl if environment metadata endpoint returns incompatible value
+
+#### Az.Aks
+* Removed 'ClientIdAndSecret' to 'ServicePrincipalIdAndSecret' and set 'ClientIdAndSecret' as an alias [#12381].
+* Removed 'Get-AzAks'/'New-AzAks'/'Remove-AzAks'/'Set-AzAks' to 'Get-AzAksCluster'/'New-AzAksCluster'/'Remove-AzAksCluster'/'Set-AzAksCluster' and set the original ones as alias [#12373].
+
+#### Az.ApiManagement
+* Added new 'Add-AzApiManagementApiToGateway' cmdlet.
+* Added new 'Get-AzApiManagementGateway' cmdlet.
+* Added new 'Get-AzApiManagementGatewayHostnameConfiguration' cmdlet.
+* Added new 'Get-AzApiManagementGatewayKey' cmdlet.
+* Added new 'New-AzApiManagementGateway' cmdlet.
+* Added new 'New-AzApiManagementGatewayHostnameConfiguration' cmdlet.
+* Added new 'New-AzApiManagementResourceLocationObject' cmdlet.
+* Added new 'Remove-AzApiManagementApiFromGateway' cmdlet.
+* Added new 'Remove-AzApiManagementGateway' cmdlet.
+* Added new 'Remove-AzApiManagementGatewayHostnameConfiguration' cmdlet.
+* Added new 'Update-AzApiManagementGateway' cmdlet.
+* Added new optional [-GatewayId] parameter to the 'Get-AzApiManagementApi' cmdlet.
+
+#### Az.CognitiveServices
+* Used 'Deny' specifically as NetworkRules default action.
+
+#### Az.HDInsight
+* Supported creating cluster with encryption in transit feature.
+    - Add new parameter 'EncryptionInTransit' to the cmdlet 'New-AzHDInsightCluster'
+	- Add new parameter 'EncryptionInTransit' to the cmdlet 'New-AzHDInsightClusterConfig'
+* Supported creating cluster with private link feature:
+    - Add new parameter 'PublicNetworkAccessType' and 'OutboundPublicNetworkAccessType' to the cmdlet 'New-AzHDInsightCluster'
+    - Add new parameter 'PublicNetworkAccessType' and 'OutboundPublicNetworkAccessType' to the cmdlet 'New-AzHDInsightClusterConfig'
+* Returned virtual network information when calling 'New-AzHDInsightCluster' or 'Get-AzHDInsightCluster'
+
+#### Az.Network
+* Added support for AddressPrefixType parameter to 'Remove-AzExpressRouteCircuitConnectionConfig'
+* Added non-breaking changes: PeerAddressType functionality for Private Peering in 'Remove-AzExpressRouteCircutPeeringConfig'.
+* Code changed to ignore case for AddressPrefixType and PeerAddressType parameter.
+* Modified the warning message for 'New-AzLoadBalancerFrontendIpConfig', 'New-AzPublicIpAddress' and 'New-AzPublicIpPrefix'.
+
+#### Az.OperationalInsights
+* Added '-ForceDelete' option for 'Remove-AzOperationalInsightsworkspace'
+* Added new cmdlet 'Get-AzOperationalInsightsDeletedWorkspace'
+* Added new cmdlet 'Restore-AzOperationalInsightsWorkspace'
+
+#### Az.RecoveryServices
+* Improved the Azure Backup container/item discovery experience.
+
+#### Az.Sql
+* Fixed potential server name case insensitive error in 'New-AzSqlServer' and 'Set-AzSqlServer'
+* Fixed wrong database name returned on existing database error in 'New-AzSqlDatabaseSecondary'
+
+#### Az.Storage
+* Supported create container/blob Sas token with new permission x,t
+    -  'New-AzStorageBlobSASToken'
+    -  'New-AzStorageContainerSASToken'
+* Supported create account Sas token with new permission x,t,f
+    -  'New-AzStorageAccountSASToken'
+* Supported get single file share usage
+    - 'Get-AzRmStorageShare'
+
 ## 4.4.0 - July 2020
 #### Az.Accounts
 * Added new cmdlet 'Invoke-AzRestMethod'
