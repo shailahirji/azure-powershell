@@ -1,58 +1,62 @@
 ---
 external help file:
 Module Name: Az.DesktopVirtualization
-online version: https://docs.microsoft.com/en-us/powershell/module/az.desktopvirtualization/update-azwvdsessionhost
+online version: https://docs.microsoft.com/en-us/powershell/module/az.desktopvirtualization/update-azwvdmsixpackage
 schema: 2.0.0
 ---
 
-# Update-AzWvdSessionHost
+# Update-AzWvdMsixPackage
 
 ## SYNOPSIS
-Update a session host.
+Update an  MSIX Package.
 
 ## SYNTAX
 
 ### UpdateExpanded (Default)
 ```
-Update-AzWvdSessionHost -HostPoolName <String> -Name <String> -ResourceGroupName <String>
- [-SubscriptionId <String>] [-AllowNewSession] [-AssignedUser <String>] [-DefaultProfile <PSObject>]
- [-Confirm] [-WhatIf] [<CommonParameters>]
+Update-AzWvdMsixPackage -FullName <String> -HostPoolName <String> -ResourceGroupName <String>
+ [-SubscriptionId <String>] [-DisplayName <String>] [-IsActive] [-IsRegularRegistration]
+ [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ### UpdateViaIdentityExpanded
 ```
-Update-AzWvdSessionHost -InputObject <IDesktopVirtualizationIdentity> [-AllowNewSession]
- [-AssignedUser <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
+Update-AzWvdMsixPackage -InputObject <IDesktopVirtualizationIdentity> [-DisplayName <String>] [-IsActive]
+ [-IsRegularRegistration] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Update a session host.
+Update an  MSIX Package.
 
 ## EXAMPLES
 
-### Example 1: Update a Windows Virtual Desktop SessionHost by name
+### Example 1: {{ Add title here }}
 ```powershell
-PS C:\> Update-AzWvdSessionHost -ResourceGroupName ResourceGroupName `
-                            -HostPoolName HostPoolName `
-                            -Name SessionHostName `
-                            -AllowNewSession:$false
+PS C:\> {{ Add code here }}
 
-Name                                               Type
-----                                               ----
-HostPoolName/SessionHostName Microsoft.DesktopVirtualization/hostpools/sessionhosts
+{{ Add output here }}
 ```
 
-This command updates a Windows Virtual Desktop SessionHost in a Host Pool.
+{{ Add description here }}
+
+### Example 2: {{ Add title here }}
+```powershell
+PS C:\> {{ Add code here }}
+
+{{ Add output here }}
+```
+
+{{ Add description here }}
 
 ## PARAMETERS
 
-### -AllowNewSession
-Allow a new session.
+### -DefaultProfile
+The credentials, account, tenant, and subscription used for communication with Azure.
 
 ```yaml
-Type: System.Management.Automation.SwitchParameter
+Type: System.Management.Automation.PSObject
 Parameter Sets: (All)
-Aliases:
+Aliases: AzureRMContext, AzureCredential
 
 Required: False
 Position: Named
@@ -61,8 +65,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -AssignedUser
-User assigned to SessionHost.
+### -DisplayName
+Display name for MSIX Package.
 
 ```yaml
 Type: System.String
@@ -76,15 +80,15 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -DefaultProfile
-The credentials, account, tenant, and subscription used for communication with Azure.
+### -FullName
+The version specific full name of the MSIX package within specific hostpool
 
 ```yaml
-Type: System.Management.Automation.PSObject
-Parameter Sets: (All)
-Aliases: AzureRMContext, AzureCredential
+Type: System.String
+Parameter Sets: UpdateExpanded
+Aliases: MsixPackageFullName
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -122,15 +126,31 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Name
-The name of the session host within the specified host pool
+### -IsActive
+Set a version of the package to be active across hostpool.
 
 ```yaml
-Type: System.String
-Parameter Sets: UpdateExpanded
-Aliases: SessionHostName
+Type: System.Management.Automation.SwitchParameter
+Parameter Sets: (All)
+Aliases:
 
-Required: True
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IsRegularRegistration
+Set Registration mode.
+Regular or Delayed.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -208,7 +228,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.ISessionHost
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IMsixPackage
 
 ## NOTES
 

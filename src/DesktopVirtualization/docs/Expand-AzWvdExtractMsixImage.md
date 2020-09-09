@@ -1,80 +1,67 @@
 ---
 external help file:
 Module Name: Az.DesktopVirtualization
-online version: https://docs.microsoft.com/en-us/powershell/module/az.desktopvirtualization/update-azwvdsessionhost
+online version: https://docs.microsoft.com/en-us/powershell/module/az.desktopvirtualization/expand-azwvdextractmsiximage
 schema: 2.0.0
 ---
 
-# Update-AzWvdSessionHost
+# Expand-AzWvdExtractMsixImage
 
 ## SYNOPSIS
-Update a session host.
+Extracts and Lists MSIX packages in a given Image Path.
 
 ## SYNTAX
 
-### UpdateExpanded (Default)
+### ExpandExpanded (Default)
 ```
-Update-AzWvdSessionHost -HostPoolName <String> -Name <String> -ResourceGroupName <String>
- [-SubscriptionId <String>] [-AllowNewSession] [-AssignedUser <String>] [-DefaultProfile <PSObject>]
- [-Confirm] [-WhatIf] [<CommonParameters>]
+Expand-AzWvdExtractMsixImage -HostPoolName <String> -ResourceGroupName <String> [-SubscriptionId <String>]
+ [-Uri <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
-### UpdateViaIdentityExpanded
+### Expand
 ```
-Update-AzWvdSessionHost -InputObject <IDesktopVirtualizationIdentity> [-AllowNewSession]
- [-AssignedUser <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
+Expand-AzWvdExtractMsixImage -HostPoolName <String> -ResourceGroupName <String>
+ -MsixExtractRequest <IMsixExtractRequest> [-SubscriptionId <String>] [-DefaultProfile <PSObject>] [-Confirm]
+ [-WhatIf] [<CommonParameters>]
+```
+
+### ExpandViaIdentity
+```
+Expand-AzWvdExtractMsixImage -InputObject <IDesktopVirtualizationIdentity>
+ -MsixExtractRequest <IMsixExtractRequest> [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf]
+ [<CommonParameters>]
+```
+
+### ExpandViaIdentityExpanded
+```
+Expand-AzWvdExtractMsixImage -InputObject <IDesktopVirtualizationIdentity> [-Uri <String>]
+ [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Update a session host.
+Extracts and Lists MSIX packages in a given Image Path.
 
 ## EXAMPLES
 
-### Example 1: Update a Windows Virtual Desktop SessionHost by name
+### Example 1: {{ Add title here }}
 ```powershell
-PS C:\> Update-AzWvdSessionHost -ResourceGroupName ResourceGroupName `
-                            -HostPoolName HostPoolName `
-                            -Name SessionHostName `
-                            -AllowNewSession:$false
+PS C:\> {{ Add code here }}
 
-Name                                               Type
-----                                               ----
-HostPoolName/SessionHostName Microsoft.DesktopVirtualization/hostpools/sessionhosts
+{{ Add output here }}
 ```
 
-This command updates a Windows Virtual Desktop SessionHost in a Host Pool.
+{{ Add description here }}
+
+### Example 2: {{ Add title here }}
+```powershell
+PS C:\> {{ Add code here }}
+
+{{ Add output here }}
+```
+
+{{ Add description here }}
 
 ## PARAMETERS
-
-### -AllowNewSession
-Allow a new session.
-
-```yaml
-Type: System.Management.Automation.SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -AssignedUser
-User assigned to SessionHost.
-
-```yaml
-Type: System.String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### -DefaultProfile
 The credentials, account, tenant, and subscription used for communication with Azure.
@@ -96,7 +83,7 @@ The name of the host pool within the specified resource group
 
 ```yaml
 Type: System.String
-Parameter Sets: UpdateExpanded
+Parameter Sets: Expand, ExpandExpanded
 Aliases:
 
 Required: True
@@ -112,7 +99,7 @@ To construct, see NOTES section for INPUTOBJECT properties and create a hash tab
 
 ```yaml
 Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.IDesktopVirtualizationIdentity
-Parameter Sets: UpdateViaIdentityExpanded
+Parameter Sets: ExpandViaIdentity, ExpandViaIdentityExpanded
 Aliases:
 
 Required: True
@@ -122,18 +109,19 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Name
-The name of the session host within the specified host pool
+### -MsixExtractRequest
+Represents URI referring to MSIX Image
+To construct, see NOTES section for MSIXEXTRACTREQUEST properties and create a hash table.
 
 ```yaml
-Type: System.String
-Parameter Sets: UpdateExpanded
-Aliases: SessionHostName
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IMsixExtractRequest
+Parameter Sets: Expand, ExpandViaIdentity
+Aliases:
 
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -143,7 +131,7 @@ The name is case insensitive.
 
 ```yaml
 Type: System.String
-Parameter Sets: UpdateExpanded
+Parameter Sets: Expand, ExpandExpanded
 Aliases:
 
 Required: True
@@ -158,12 +146,27 @@ The ID of the target subscription.
 
 ```yaml
 Type: System.String
-Parameter Sets: UpdateExpanded
+Parameter Sets: Expand, ExpandExpanded
 Aliases:
 
 Required: False
 Position: Named
 Default value: (Get-AzContext).Subscription.Id
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Uri
+URI to Image
+
+```yaml
+Type: System.String
+Parameter Sets: ExpandExpanded, ExpandViaIdentityExpanded
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -204,11 +207,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IMsixExtractRequest
+
 ### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.IDesktopVirtualizationIdentity
 
 ## OUTPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.ISessionHost
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IExtractMsixImage
 
 ## NOTES
 
@@ -231,6 +236,9 @@ INPUTOBJECT <IDesktopVirtualizationIdentity>: Identity Parameter
   - `[SubscriptionId <String>]`: The ID of the target subscription.
   - `[UserSessionId <String>]`: The name of the user session within the specified session host
   - `[WorkspaceName <String>]`: The name of the workspace
+
+MSIXEXTRACTREQUEST <IMsixExtractRequest>: Represents URI referring to MSIX Image
+  - `[Uri <String>]`: URI to Image
 
 ## RELATED LINKS
 
