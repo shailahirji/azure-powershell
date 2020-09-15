@@ -128,18 +128,7 @@ function New-AzWvdApplication_AppAlias {
         if ($PSBoundParameters.ContainsKey("ShowInPortal")) {
             $saveShowInPortal = $PSBoundParameters["ShowInPortal"]
         }
-        $saveMsixPackageFamilyName = $null
-        if ($PSBoundParameters.ContainsKey("MsixPackageFamilyName")) {
-            $saveMsixPackageFamilyName = $PSBoundParameters["MsixPackageFamilyName"]
-        }
-        $saveMsixPackageApplicationId = $null
-        if ($PSBoundParameters.ContainsKey("MsixPackageApplicationId")) {
-            $saveMsixPackageApplicationId = $PSBoundParameters["MsixPackageApplicationId"]
-        }
-        $saveApplicationType= $null
-        if ($PSBoundParameters.ContainsKey("ApplicationType")) {
-            $saveApplicationType = $PSBoundParameters["ApplicationType"]
-        }
+    
         $null = $PSBoundParameters.Remove("GroupName")
         $null = $PSBoundParameters.Remove("AppAlias")
         $null = $PSBoundParameters.Remove("Name")
@@ -147,10 +136,6 @@ function New-AzWvdApplication_AppAlias {
         $null = $PSBoundParameters.Remove("Description")
         $null = $PSBoundParameters.Remove("CommandLineSetting")
         $null = $PSBoundParameters.Remove("ShowInPortal")
-
-        $null = $PSBoundParameters.Remove("MsixPackageFamilyName")
-        $null = $PSBoundParameters.Remove("MsixPackageApplicationId")
-        $null = $PSBoundParameters.Remove("ApplicationType")
 
         $startMenuItem = Az.DesktopVirtualization\Get-AzWvdStartMenuItem @PSBoundParameters -ApplicationGroupName $saveGroupName `
                                     | Where-Object -Property AppAlias -Match $saveAppAlias
@@ -160,13 +145,9 @@ function New-AzWvdApplication_AppAlias {
         $null = $PSBoundParameters.Add("CommandLineSetting", $CommandLineSetting)
         $null = $PSBoundParameters.Add("ShowInPortal", $ShowInPortal)
         
-        $null = $PSBoundParameters.Add("MsixPackageFamilyName", $saveMsixPackageFamilyName)
-        $null = $PSBoundParameters.Add("MsixPackageApplicationId", $saveMsixPackageApplicationId)
-        $null = $PSBoundParameters.Add("ApplicationType", $saveApplicationType)
-
         $application = Az.DesktopVirtualization\New-AzWvdApplication @PSBoundParameters -GroupName $saveGroupName `
             -FilePath $startMenuItem.FilePath `
             -IconIndex $startMenuItem.IconIndex `
-            -IconPath $startMenuItem.IconPath
+            -IconPath $startMenuItem .IconPath
     }
 }
