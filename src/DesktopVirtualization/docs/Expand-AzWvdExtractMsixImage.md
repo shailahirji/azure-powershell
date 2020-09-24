@@ -1,43 +1,45 @@
 ---
 external help file:
 Module Name: Az.DesktopVirtualization
-online version: https://docs.microsoft.com/en-us/powershell/module/az.desktopvirtualization/expand-azwvdmsiximage
+online version: https://docs.microsoft.com/en-us/powershell/module/az.desktopvirtualization/expand-azwvdextractmsiximage
 schema: 2.0.0
 ---
 
-# Expand-AzWvdMsixImage
+# Expand-AzWvdExtractMsixImage
 
 ## SYNOPSIS
-Expands and Lists MSIX packages in a given Image Path.
+Extracts and Lists MSIX packages in a given Image Path.
 
 ## SYNTAX
 
 ### ExpandExpanded (Default)
 ```
-Expand-AzWvdMsixImage -HostPoolName <String> -ResourceGroupName <String> [-SubscriptionId <String>]
+Expand-AzWvdExtractMsixImage -HostPoolName <String> -ResourceGroupName <String> [-SubscriptionId <String>]
  [-Uri <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ### Expand
 ```
-Expand-AzWvdMsixImage -HostPoolName <String> -ResourceGroupName <String> -MsixImageRequest <IMsixImageRequest>
- [-SubscriptionId <String>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
+Expand-AzWvdExtractMsixImage -HostPoolName <String> -ResourceGroupName <String>
+ -MsixExtractRequest <IMsixExtractRequest> [-SubscriptionId <String>] [-DefaultProfile <PSObject>] [-Confirm]
+ [-WhatIf] [<CommonParameters>]
 ```
 
 ### ExpandViaIdentity
 ```
-Expand-AzWvdMsixImage -InputObject <IDesktopVirtualizationIdentity> -MsixImageRequest <IMsixImageRequest>
- [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
+Expand-AzWvdExtractMsixImage -InputObject <IDesktopVirtualizationIdentity>
+ -MsixExtractRequest <IMsixExtractRequest> [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf]
+ [<CommonParameters>]
 ```
 
 ### ExpandViaIdentityExpanded
 ```
-Expand-AzWvdMsixImage -InputObject <IDesktopVirtualizationIdentity> [-Uri <String>]
+Expand-AzWvdExtractMsixImage -InputObject <IDesktopVirtualizationIdentity> [-Uri <String>]
  [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Expands and Lists MSIX packages in a given Image Path.
+Extracts and Lists MSIX packages in a given Image Path.
 
 ## EXAMPLES
 
@@ -107,12 +109,12 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -MsixImageRequest
+### -MsixExtractRequest
 Represents URI referring to MSIX Image
-To construct, see NOTES section for MSIXIMAGEREQUEST properties and create a hash table.
+To construct, see NOTES section for MSIXEXTRACTREQUEST properties and create a hash table.
 
 ```yaml
-Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IMsixImageRequest
+Type: Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IMsixExtractRequest
 Parameter Sets: Expand, ExpandViaIdentity
 Aliases:
 
@@ -205,13 +207,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IMsixImageRequest
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IMsixExtractRequest
 
 ### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.IDesktopVirtualizationIdentity
 
 ## OUTPUTS
 
-### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IExpandMsixImage
+### Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IExtractMsixImage
 
 ## NOTES
 
@@ -235,7 +237,7 @@ INPUTOBJECT <IDesktopVirtualizationIdentity>: Identity Parameter
   - `[UserSessionId <String>]`: The name of the user session within the specified session host
   - `[WorkspaceName <String>]`: The name of the workspace
 
-MSIXIMAGEREQUEST <IMsixImageRequest>: Represents URI referring to MSIX Image
+MSIXEXTRACTREQUEST <IMsixExtractRequest>: Represents URI referring to MSIX Image
   - `[Uri <String>]`: URI to Image
 
 ## RELATED LINKS

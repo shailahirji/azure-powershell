@@ -14,8 +14,8 @@ Microsoft Azure PowerShell: DesktopVirtualization cmdlets
 ### [Disconnect-AzWvdUserSession](Disconnect-AzWvdUserSession.md)
 Disconnect a userSession.
 
-### [Expand-AzWvdMsixImage](Expand-AzWvdMsixImage.md)
-Expands and Lists MSIX packages in a given Image Path.
+### [Expand-AzWvdExtractMsixImage](Expand-AzWvdExtractMsixImage.md)
+Extracts and Lists MSIX packages in a given Image Path.
 
 ### [Get-AzWvdApplication](Get-AzWvdApplication.md)
 Get an application.
