@@ -12,19 +12,20 @@ while(-not $mockingPath) {
 . ($mockingPath | Select-Object -First 1).FullName
 
 Describe 'Expand-AzWvdMsixImage' {
-    It 'ExpandExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
+    
+    It 'Expand'  {
+        $package = Expand-AzWvdMsixImage -HostPoolName ryannis-hp `
+         -ResourceGroupName ryannis-ukwest `
+         -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 `
+         -Uri 'C:\msix\singlemsix.vhd'
+         
+        $package.PackageFamilyName | Should -Be  'MsixPackage_zf7zaz2wb1ayy'
+        $package.ImagePath | Should -Be 'C:\msix\singlemsix.vhd'
+        $package.PackageName | Should -Be 'MsixPackage'
+        $package.PackageAlias | Should -Be 'msixpackage'
+        $package.IsActive | Should -Be $False
+        $package.IsRegularRegistration | Should -Be $False
+        $package.PackageRelativePath | Should -Be '\apps\MsixPackage_1.0.0.0_neutral__zf7zaz2wb1ayy'
 
-    It 'Expand' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'ExpandViaIdentityExpanded' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
-    }
-
-    It 'ExpandViaIdentity' -skip {
-        { throw [System.NotImplementedException] } | Should -Not -Throw
     }
 }
