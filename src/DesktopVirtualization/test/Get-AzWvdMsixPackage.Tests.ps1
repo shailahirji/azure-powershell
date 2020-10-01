@@ -55,19 +55,19 @@ Describe 'Get-AzWvdMsixPackage'  {
             -ResourceGroupName ryannis-ukwest `
             -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
  
-        $packages[1].PackageFamilyName | Should -Be  'MsixUnitTest_FamilyName'
-        $packages[1].ImagePath | Should -Be 'C:\\MsixUnitTest.vhd'
+        $packages[0].PackageFamilyName | Should -Be  'MsixUnitTest_FamilyName'
+        $packages[0].ImagePath | Should -Be 'C:\\MsixUnitTest.vhd'
+        ($packages[0].PackageApplication | ConvertTo-Json) | Should -Be ($apps | ConvertTo-Json)
+        ($packages[0].PackageDependency| ConvertTo-Json) | Should -Be ($deps| ConvertTo-Json)
+        $packages[0].PackageName | Should -Be 'MsixUnitTest_Name'
+        $packages[0].PackageRelativePath | Should -Be 'MsixUnitTest_RelativePackageRoot'
+
+        $packages[1].PackageFamilyName | Should -Be  'MsixUnitTest_FamilyName2'
+        $packages[1].ImagePath | Should -Be 'C:\\MsixUnitTest2.vhd'
         ($packages[1].PackageApplication | ConvertTo-Json) | Should -Be ($apps | ConvertTo-Json)
         ($packages[1].PackageDependency| ConvertTo-Json) | Should -Be ($deps| ConvertTo-Json)
-        $packages[1].PackageName | Should -Be 'MsixUnitTest_Name'
-        $packages[1].PackageRelativePath | Should -Be 'MsixUnitTest_RelativePackageRoot'
-
-        $packages[2].PackageFamilyName | Should -Be  'MsixUnitTest_FamilyName2'
-        $packages[2].ImagePath | Should -Be 'C:\\MsixUnitTest2.vhd'
-        ($packages[2].PackageApplication | ConvertTo-Json) | Should -Be ($apps | ConvertTo-Json)
-        ($packages[2].PackageDependency| ConvertTo-Json) | Should -Be ($deps| ConvertTo-Json)
-        $packages[2].PackageName | Should -Be 'MsixUnitTest_Name2'
-        $packages[2].PackageRelativePath | Should -Be 'MsixUnitTest_RelativePackageRoot2'
+        $packages[1].PackageName | Should -Be 'MsixUnitTest_Name2'
+        $packages[1].PackageRelativePath | Should -Be 'MsixUnitTest_RelativePackageRoot2'
         
  
         $package = Remove-AzWvdMsixPackage -FullName 'MsixTest_FullName_UnitTest' `
@@ -122,6 +122,5 @@ Describe 'Get-AzWvdMsixPackage'  {
             -HostPoolName ryannis-hp `
             -ResourceGroupName ryannis-ukwest `
             -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
-
     }
 }

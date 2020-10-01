@@ -1,18 +1,9 @@
-### Example 1: {{ Add title here }}
+### Example 1: Delete MSIX Package by Package Full Name
 ```powershell
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
+PS C:\> Remove-AzWvdMsixPackage -HostPoolName HostPoolName -ResourceGroupName ResourceGroupName -SubscriptionId SubscriptionId -FullName PackageFullName
 ```
 
-{{ Add description here }}
+This command deletes a MSIX Package in a HostPool
 
-### Example 2: {{ Add title here }}
-```powershell
-PS C:\> {{ Add code here }}
 
-{{ Add output here }}
-```
-
-{{ Add description here }}
 

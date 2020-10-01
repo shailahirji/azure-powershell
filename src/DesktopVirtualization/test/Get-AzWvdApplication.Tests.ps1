@@ -12,7 +12,7 @@ while (-not $mockingPath) {
 . ($mockingPath | Select-Object -First 1).FullName
 
 Describe 'Get-AzWvdApplication' {
-    It 'Get' -Skip{
+    It 'Get' -Skip {
         $applicationGroup = New-AzWvdApplicationGroup -SubscriptionId $env.SubscriptionId `
             -ResourceGroupName $env.ResourceGroup `
             -Name 'ApplicationGroupPowershell1' `
@@ -183,7 +183,115 @@ Describe 'Get-AzWvdApplication' {
             -ResourceGroupName ryannis-ukwest `
             -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
 
-            $package = Remove-AzWvdMsixPackage -FullName 'MsixTest_FullName_UnitTest' `
+        $package = Remove-AzWvdMsixPackage -FullName 'MsixTest_FullName_UnitTest' `
+            -HostPoolName ryannis-hp `
+            -ResourceGroupName ryannis-ukwest `
+            -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
+
+    }
+
+    It 'GetMsixApplication_RAG_List' {
+
+        $enc = [system.Text.Encoding]::UTF8
+        $string1 = "some image"
+        $data1 = $enc.GetBytes($string1) 
+
+        $apps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IMsixPackageApplications]@{appId = 'MsixTest_Application_Id'; description = 'testing from ps'; appUserModelID = 'MsixTest_Application_ModelID'; friendlyName = 'some name'; iconImageName = 'Apptile'; rawIcon = $data1; rawPng = $data1 })
+        $deps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IMsixPackageDependencies]@{dependencyName = 'MsixTest_Dependency_Name'; publisher = 'MsixTest_Dependency_Publisher'; minVersion = '0.0.0.42' })   
+
+        $package = New-AzWvdMsixPackage -FullName MsixTest_FullName_UnitTest `
+            -HostPoolName ryannis-hp `
+            -ResourceGroupName ryannis-ukwest `
+            -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 `
+            -DisplayName 'UnitTest-MSIXPackage' -ImagePath 'C:\\MsixUnitTest.vhd' `
+            -IsActive `
+            -IsRegularRegistration `
+            -LastUpdated '0001-01-01T00:00:00' `
+            -PackageApplication $apps `
+            -PackageDependency $deps `
+            -PackageFamilyName 'MsixUnitTest_FamilyName' `
+            -PackageName 'MsixUnitTest_Name' `
+            -PackageRelativePath 'MsixUnitTest_RelativePackageRoot' `
+            -Version '0.0.18838.722' 
+
+        # create MSIX App 
+
+        $application = New-AzWvdApplication -GroupName 'ryannis-rag' `
+            -Name 'UnitTest-MSIX-Application' `
+            -ResourceGroupName ryannis-ukwest `
+            -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 `
+            -ApplicationType 1 `
+            -MsixPackageApplicationId 'MsixTest_Application_Id' `
+            -MsixPackageFamilyName 'MsixUnitTest_FamilyName'`
+            -Description 'Unit Test MSIX Application' `
+            -FriendlyName 'friendlyname'`
+            -IconIndex 0  `
+            -IconPath 'c:\unittest_img.png' `
+            -CommandLineSetting 0
+
+        $application = Get-AzWvdApplication -ResourceGroupName ryannis-ukwest `
+            -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 `
+            -GroupName 'ryannis-rag' `
+            -Name 'UnitTest-MSIX-Application'
+
+        $application.Name | Should -Be 'ryannis-rag/UnitTest-MSIX-Application'
+        $application.FriendlyName | Should -Be 'friendlyname'
+        $application.Description | Should -Be 'Unit Test MSIX Application'
+        $application.IconIndex | Should -Be 0
+        $application.IconPath | Should -Be 'c:\unittest_img.png'
+        $application.ShowInPortal | Should -Be $true
+
+        # create InBuilt Applications 
+
+        $application = New-AzWvdApplication -GroupName 'ryannis-rag' `
+            -ResourceGroupName ryannis-ukwest `
+            -SubscriptionId '292d7caa-a878-4de8-b774-689097666272' `
+            -ApplicationType 0 `
+            -Name 'Reg-App' `
+            -FilePath 'C:\windows\system32\regApp.exe' `
+            -FriendlyName 'fri' `
+            -Description 'des' `
+            -IconIndex 0 `
+            -IconPath 'C:\windows\system32\regApp.png' `
+            -ShowInPortal:$True `
+            -CommandLineSetting 0
+
+        # $application = New-AzWvdApplication -GroupName 'ryannis-rag' `
+        #     -ResourceGroupName ryannis-ukwest `
+        #     -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 `
+        #     -Name 'Paint2' `
+        #     -FilePath 'C:\windows\system32\mspaint2.exe' `
+        #     -FriendlyName 'fri' `
+        #     -Description 'des' `
+        #     -IconIndex 0 `
+        #     -IconPath 'C:\windows\system32\mspaint2.exe' `
+        #     -CommandLineSetting 'Allow' `
+        #     -ShowInPortal:$true
+
+        #Get list of applications, all applications returned 
+        $applications = Get-AzWvdApplication -GroupName 'ryannis-rag' `
+            -ResourceGroupName ryannis-ukwest `
+            -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 `
+            -Filter "applicationType eq 'MsixApplication'" 
+
+        $applications[0].applicationType | Should -Be 'MsixApplication' #atleast one msix application is returned 
+
+        $application = Remove-AzWvdApplication -GroupName 'ryannis-rag' `
+            -Name 'UnitTest-MSIX-Application' `
+            -ResourceGroupName ryannis-ukwest `
+            -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
+
+        $application = Remove-AzWvdApplication -GroupName 'ryannis-rag' `
+            -Name 'Reg-App' `
+            -ResourceGroupName ryannis-ukwest `
+            -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
+
+        # $application = Remove-AzWvdApplication -GroupName 'ryannis-rag' `
+        #     -Name 'Paint2' `
+        #     -ResourceGroupName ryannis-ukwest `
+        #     -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
+
+        $package = Remove-AzWvdMsixPackage -FullName 'MsixTest_FullName_UnitTest' `
             -HostPoolName ryannis-hp `
             -ResourceGroupName ryannis-ukwest `
             -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
@@ -237,17 +345,19 @@ Describe 'Get-AzWvdApplication' {
         $application.Description | Should -Be 'Unit Test MSIX Application'
         $application.IconIndex | Should -Be 0
         $application.MsixPackageFamilyName | Should -Be 'MsixUnitTest_FamilyName'
-        $application.ShowInPortal | Should -Be $false #fix in process of getting tests 
+        $application.ShowInPortal | Should -Be $False
 
         $application = Remove-AzWvdApplication -GroupName 'ryannis-hp-DAG' `
             -Name 'UnitTest-MSIX-Application-DAG' `
             -ResourceGroupName ryannis-ukwest `
             -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
 
-            $package = Remove-AzWvdMsixPackage -FullName 'MsixTest_FullName_UnitTest' `
+        $package = Remove-AzWvdMsixPackage -FullName 'MsixTest_FullName_UnitTest' `
             -HostPoolName ryannis-hp `
             -ResourceGroupName ryannis-ukwest `
             -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
 
     }
+
+
 }

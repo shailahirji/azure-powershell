@@ -52,6 +52,11 @@ Describe 'New-AzWvdMsixPackage' {
 
     It 'PackageAlias' {
 
+        $removePackage_IfExists = Remove-AzWvdMsixPackage -FullName 'MsixPackage_1.0.0.0_neutral__zf7zaz2wb1ayy' `
+        -HostPoolName ryannis-hp `
+        -ResourceGroupName ryannis-ukwest `
+        -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
+
         #image exists on specified hostpool
         $package_created = New-AzWvdMsixPackage -PackageAlias 'msixpackage' `
             -ImagePath 'C:\msix\singlemsix.vhd' `

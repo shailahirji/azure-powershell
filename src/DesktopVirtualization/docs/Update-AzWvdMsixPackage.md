@@ -30,23 +30,21 @@ Update an  MSIX Package.
 
 ## EXAMPLES
 
-### Example 1: {{ Add title here }}
+### Example 1: Update a MSIX Package 
 ```powershell
-PS C:\> {{ Add code here }}
+PS C:\> Update-AzWvdMsixPackage -HostPoolName HostPoolName `
+				-ResourceGroupName ResourceGroupName `
+				-SubscriptionId SubscriptionId `
+				-displayName 'Updated-display-Name' `
+        			-IsRegularRegistration:$False `
+				-IsActive:$True
 
-{{ Add output here }}
+Name                                                  Type
+----                                                  ----
+HostPoolName/MSIXPackage_FullName1                    Microsoft.DesktopVirtualization/hostpools/msixpackages
 ```
 
-{{ Add description here }}
-
-### Example 2: {{ Add title here }}
-```powershell
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-```
-
-{{ Add description here }}
+This command updates a MSIX Package in a HostPool.
 
 ## PARAMETERS
 
