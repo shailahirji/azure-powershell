@@ -22,7 +22,7 @@ Describe 'Remove-AzWvdMsixPackage' {
         $deps = @( [Microsoft.Azure.PowerShell.Cmdlets.DesktopVirtualization.Models.Api20191210Preview.IMsixPackageDependencies]@{dependencyName = 'MsixTest_Dependency_Name'; publisher = 'MsixTest_Dependency_Publisher'; minVersion = '0.0.0.42' })   
         
         $package_created = New-AzWvdMsixPackage -FullName MsixTest_FullName_UnitTest `
-            -HostPoolName ryannis-hp `
+            -HostPoolName shhirji-ps-test `
             -ResourceGroupName ryannis-ukwest `
             -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 `
             -DisplayName 'UnitTest-MSIXPackage' -ImagePath 'C:\\MsixUnitTest.vhd' `
@@ -37,7 +37,7 @@ Describe 'Remove-AzWvdMsixPackage' {
             -Version '0.0.18838.722' 
 
         $package = Get-AzWvdMsixPackage -FullName MsixTest_FullName_UnitTest `
-            -HostPoolName ryannis-hp `
+            -HostPoolName shhirji-ps-test `
             -ResourceGroupName ryannis-ukwest `
             -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
 
@@ -50,13 +50,13 @@ Describe 'Remove-AzWvdMsixPackage' {
         $package.PackageRelativePath | Should -Be 'MsixUnitTest_RelativePackageRoot'
 
         $package = Remove-AzWvdMsixPackage -FullName 'MsixTest_FullName_UnitTest' `
-            -HostPoolName ryannis-hp `
+            -HostPoolName shhirji-ps-test `
             -ResourceGroupName ryannis-ukwest `
             -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
 
         try {
             $package_get = Get-AzWvdMsixPackage -FullName MsixTest_FullName_UnitTest `
-                -HostPoolName ryannis-hp `
+                -HostPoolName shhirji-ps-test `
                 -ResourceGroupName ryannis-ukwest `
                 -SubscriptionId 292d7caa-a878-4de8-b774-689097666272 
             throw "Get should have failed."
